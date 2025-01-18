@@ -47,14 +47,14 @@ def local_search(node_coords, demands, capacity, max_iterations, depot_coords):
     
     return best_solution, best_cost
 # Chargement des données
-filename = "C:/Soft-Computing-Contest/data/A/A-n32-k5.vrp"
-node_coords, demands, capacity, depot_coords = parse_vrp_file(filename)
+#filename = "C:/Soft-Computing-Contest/data/A/A-n32-k5.vrp"
+#node_coords, demands, capacity, depot_coords = parse_vrp_file(filename)
 # Paramètres
-max_iterations = 100
+#max_iterations = 100
 
 # Résolution avec recherche locale
-best_solution, best_cost = local_search(node_coords, demands, capacity, max_iterations, depot_coords)
+#best_solution, best_cost = local_search(node_coords, demands, capacity, max_iterations, depot_coords)
 
 # Affichage des résultats
-print_solution(best_solution, best_cost)
+#print_solution(best_solution, best_cost)
 
