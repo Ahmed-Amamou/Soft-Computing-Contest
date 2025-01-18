@@ -27,17 +27,16 @@ def generate_initial_solution(num_customers, num_vehicles, capacity, demands):
     customers = list(range(1, num_customers + 1))
     random.shuffle(customers)
     solution = []
-
     for _ in range(num_vehicles):
         route = []
         route_capacity = 0
-        while customers and (route_capacity + demands[customers[0]] <= capacity):
+        while customers and (route_capacity + demands[customers[0]] <= 100):
             customer = customers.pop(0)
             route.append(customer)
             route_capacity += demands[customer]
         solution.append(route)
 
-    if customers:  # Remaining customers due to insufficient vehicles
+    if customers: 
         solution.append(customers)
 
     return solution
@@ -67,7 +66,8 @@ def simulated_annealing(instance_data, initial_temp, final_temp, alpha, max_iter
     demands = instance_data["demands"]
     capacity = instance_data["capacity"]
     num_vehicles = instance_data["trucks"]
-    num_customers = len(demands)
+    num_customers = len(demands)-1
+    print(num_customers)
    
 
     current_solution = generate_initial_solution(num_customers, num_vehicles, capacity, demands)
@@ -80,9 +80,9 @@ def simulated_annealing(instance_data, initial_temp, final_temp, alpha, max_iter
     while temperature > final_temp:
         for _ in range(max_iterations):
             new_solution = perturb_solution(current_solution)
-
-            is_feasible, _, _ = verify_solution(instance_data, new_solution)
+            is_feasible, total_cost, message = verify_solution(instance_data, new_solution)
             if not is_feasible:
+                # print(is_feasible,total_cost,message)
                 continue
 
             new_cost = calculate_cost(new_solution, nodes)
@@ -113,7 +113,7 @@ def format_solution(solution):
 
 if __name__ == "__main__":
     # Example usage
-    file_path = "../../data/B/B-n31-k5.vrp"  
+    file_path = "../../data/B/B-n34-k5.vrp"  
     instance_data = read_instance(file_path)
 
     initial_temp = 1000
