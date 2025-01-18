@@ -67,7 +67,6 @@ def verify_solution(instance_data, solution):
         # Return to the depot
         route_cost += euclidean_distance(nodes[prev_node], nodes[depot])
         total_cost += route_cost
-
     # Check if all customers were visited exactly once
     all_customers = set(nodes.keys()) - {0}  # All customers (excluding depot and last node)
     all_customers.remove(max(all_customers))  # Remove the last node
