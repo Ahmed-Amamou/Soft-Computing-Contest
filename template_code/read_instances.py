@@ -62,4 +62,5 @@ def read_instance(file_path):
 
     data["nodes"] = nodes
     data["demands"] = demands
+
     return data
