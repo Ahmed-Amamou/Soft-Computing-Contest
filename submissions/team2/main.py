@@ -46,6 +46,7 @@ def main():
     taboue_results= evaluate_algorithm_for_single_instance(instance_path, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
 
     display_results(taboue_results)
+    
     plot_simple_results(taboue_results)
     #Recherche Locale
     #locale_results = evaluate_local_search(instance_path, local_search, optimal_solution_path,max_iterations)

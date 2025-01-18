@@ -58,8 +58,8 @@ filename = '../../data/A/A-n32-k5.vrp'
 node_coords, demands, capacity, depot_coords = parse_vrp_file(filename)
 
 # # Paramètres
-#max_iteration = 100
-#tabu_tenure = 10
+# max_iteration = 100
+# tabu_tenure = 10
 
 # Résolution avec recherche Tabou
 best_solution, best_cost = tabu_search(node_coords, demands, capacity, max_iterations, tabu_tenure, depot_coords)
