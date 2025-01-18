@@ -93,43 +93,43 @@ def neighborhood_solution(routes, demands, capacity):
     return [list(map(list, solution)) for solution in solutions]
 
 
-# def parse_vrp_file(filename):
-#     with open(filename, 'r') as file:
-#         lines = file.readlines()
+def parse_vrp_file(filename):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
 
-#     node_coords = {}
-#     demands = {}
-#     capacity = 0
-#     depot = None  
-#     section = None
+    node_coords = {}
+    demands = {}
+    capacity = 0
+    depot = None  
+    section = None
 
-#     for line in lines:
-#         line = line.strip()
-#         if line.startswith('CAPACITY'):
-#             capacity = int(line.split(':')[1].strip())
-#         elif line.startswith('NODE_COORD_SECTION'):
-#             section = 'NODE_COORD'
-#         elif line.startswith('DEMAND_SECTION'):
-#             section = 'DEMAND'
-#         elif line.startswith('DEPOT_SECTION'):
-#             section = 'DEPOT'
-#         elif line == 'EOF':
-#             break
-#         elif section == 'NODE_COORD':
-#             parts = line.split()
-#             node_coords[int(parts[0])] = (int(parts[1]), int(parts[2]))
-#         elif section == 'DEMAND':
-#             parts = line.split()
-#             demands[int(parts[0])] = int(parts[1])
-#         elif section == 'DEPOT':
-#             if line.isdigit():
-#                 depot = int(line)
+    for line in lines:
+        line = line.strip()
+        if line.startswith('CAPACITY'):
+            capacity = int(line.split(':')[1].strip())
+        elif line.startswith('NODE_COORD_SECTION'):
+            section = 'NODE_COORD'
+        elif line.startswith('DEMAND_SECTION'):
+            section = 'DEMAND'
+        elif line.startswith('DEPOT_SECTION'):
+            section = 'DEPOT'
+        elif line == 'EOF':
+            break
+        elif section == 'NODE_COORD':
+            parts = line.split()
+            node_coords[int(parts[0])] = (int(parts[1]), int(parts[2]))
+        elif section == 'DEMAND':
+            parts = line.split()
+            demands[int(parts[0])] = int(parts[1])
+        elif section == 'DEPOT':
+            if line.isdigit():
+                depot = int(line)
 
-#     if depot is None or depot not in node_coords:
-#         raise ValueError("Les coordonnées du dépôt sont introuvables dans le fichier.")
+    if depot is None or depot not in node_coords:
+        raise ValueError("Les coordonnées du dépôt sont introuvables dans le fichier.")
 
-#     depot_coords = node_coords[depot]
-#     return node_coords, demands, capacity, depot_coords
+    depot_coords = node_coords[depot]
+    return node_coords, demands, capacity, depot_coords
 
 # Fonction d'affichage de la solution 
 def print_solution(routes, cost):

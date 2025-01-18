@@ -7,7 +7,9 @@ import time
 # Ajout explicite du chemin du dossier 'template_code'
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../template_code')))
 from read_instances import read_instance
-from verify_solution import verify_solution
+from verify_solution import verify_solution,euclidean_distance
+from functions import parse_vrp_file
+
 
 # Extraction des routes et coût optimal
 def parse_solution_file(solution_path):
@@ -27,6 +29,55 @@ def parse_solution_file(solution_path):
                 optimal_cost = int(line.split()[1])
 
     return optimal_routes, optimal_cost
+
+def parse_vrp_file_from_name(base_path, filename):
+    """
+    Parse un fichier .vrp à partir du nom de fichier et d'un chemin de base.
+    
+    Args:
+        base_path (str): Le chemin du répertoire contenant le fichier.
+        filename (str): Le nom du fichier .vrp.
+    
+    Returns:
+        tuple: (node_coords, demands, capacity, depot_coords)
+    """
+    file_path = os.path.join(base_path, filename)
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    node_coords = {}
+    demands = {}
+    capacity = 0
+    depot = None  
+    section = None
+
+    for line in lines:
+        line = line.strip()
+        if line.startswith('CAPACITY'):
+            capacity = int(line.split(':')[1].strip())
+        elif line.startswith('NODE_COORD_SECTION'):
+            section = 'NODE_COORD'
+        elif line.startswith('DEMAND_SECTION'):
+            section = 'DEMAND'
+        elif line.startswith('DEPOT_SECTION'):
+            section = 'DEPOT'
+        elif line == 'EOF':
+            break
+        elif section == 'NODE_COORD':
+            parts = line.split()
+            node_coords[int(parts[0])] = (int(parts[1]), int(parts[2]))
+        elif section == 'DEMAND':
+            parts = line.split()
+            demands[int(parts[0])] = int(parts[1])
+        elif section == 'DEPOT':
+            if line.isdigit():
+                depot = int(line)
+
+    if depot is None or depot not in node_coords:
+        raise ValueError("Les coordonnées du dépôt sont introuvables dans le fichier.")
+
+    depot_coords = node_coords[depot]
+    return node_coords, demands, capacity, depot_coords
 
 # Chargement de la solution optimale à partir du fichier
 def load_optimal_solution(solution_path):
@@ -51,6 +102,54 @@ def calculate_proximity(optimal_cost, generated_cost):
     return proximity
 
 
+def verifier_solution(root, filename, solution):
+    """
+    Vérifie que tous les nœuds existent une seule fois dans la solution et que chaque route respecte la capacité maximale.
+
+    Paramètres :
+    - root : noeud racine.
+    - filename : nom du fichier contenant les informations des nœuds et capacités.
+    - solution : liste de listes représentant les routes (chaque sous-liste est une route).
+    - capacite_maximale : capacité maximale autorisée pour une route.
+
+    Retourne :
+    - Un dictionnaire avec le statut de la vérification et les détails des erreurs éventuelles.
+    """
+    
+    # Lecture des données de l'instance
+    node_coords, demands, capacity, depot_coords = parse_vrp_file_from_name(root,filename)
+    node_coords.popitem()
+    demands.popitem()
+    # Extraire les nœuds et leurs demandes
+    noeuds_demandes = demands
+
+    # Vérification 1 : Chaque nœud est visité une seule fois
+    noeuds_visites = set()
+    for route in solution:
+        noeuds_visites.update(route)
+
+    noeuds_attendus = set(noeuds_demandes.keys())
+    noeuds_manquants = noeuds_attendus - noeuds_visites
+    noeuds_dupliques = [n for n in noeuds_visites if sum(route.count(n) for route in solution) > 1]
+
+    if noeuds_manquants:
+        return {"status": "Échec", "details": f"Nœuds manquants : {noeuds_manquants}"}
+
+    if noeuds_dupliques:
+        return {"status": "Échec", "details": f"Nœuds dupliqués : {noeuds_dupliques}"}
+
+    # Vérification 2 : Chaque route respecte la capacité maximale
+    for i, route in enumerate(solution):
+        capacite_utilisee = sum(noeuds_demandes.get(n, 0) for n in route)
+        if capacite_utilisee > capacity:
+            return {
+                "status": "Échec",
+                "details": f"La route {i + 1} dépasse la capacité maximale ({capacite_utilisee} > {capacity})",
+            }
+
+    # Si toutes les vérifications passent
+    return {"status": "Succès", "details": "La solution est valide."}
+
 def evaluate_algorithm(data_path, tabu_search_fn, solution_path, iterations=100, tabu_tenures=[5, 10, 20]):
     results = {}
     print(f"Evaluating files in directory: {data_path}")
@@ -67,9 +166,9 @@ def evaluate_algorithm(data_path, tabu_search_fn, solution_path, iterations=100,
 
                 try:
                     # Lecture des données de l'instance
-                    instance_data = read_instance(instance_path)
-                    nodes, demands, capacity = instance_data["nodes"], instance_data["demands"], instance_data["capacity"]
-                    depot_coords = nodes[1]  # Supposons que le dépôt est le nœud 1
+                    node_coords, demands, capacity, depot_coords = parse_vrp_file_from_name(root,filename)
+                    node_coords.popitem()
+                    demands.popitem()
                     print(f"Instance data loaded for {filename}")
                     
                     # Chargement de la solution optimale
@@ -95,7 +194,7 @@ def evaluate_algorithm(data_path, tabu_search_fn, solution_path, iterations=100,
                             start_time = time.time()
 
                             best_solution, best_cost = tabu_search_fn(
-                                nodes, demands, capacity, iterations, tenure, depot_coords
+                                node_coords, demands, capacity, iterations, tenure, depot_coords
                             )
                             
                             exec_time = time.time() - start_time
@@ -106,19 +205,21 @@ def evaluate_algorithm(data_path, tabu_search_fn, solution_path, iterations=100,
                             print(f"Proximity to optimal solution: {proximity:.2f}%")
 
                             # Vérification de la validité de la solution
-                            is_valid, total_cost, message = verify_solution(
-                                {'nodes': nodes, 'demands': demands, 'capacity': capacity},
-                                best_solution
+                            result = verifier_solution(root, filename,best_solution,
                             )
-                            print(f"Solution validity: {is_valid}")
-                            print(f"Verification message: {message}")
-                            print(f"Total cost after verification: {total_cost}")
+                            # Extraction des informations de la vérification
+                            is_valid = result["status"] == "Succès"
+                            message = result["details"]
 
+                            # Affichage des résultats
+                            print(f"Solution validity: {is_valid}")
+                            print(f"Total cost after verification: {best_cost}")
+                            print(f"Message: {message}")
                             if is_valid:
-                                costs.append(total_cost)
+                                costs.append(best_cost)
                                 valid_solutions += 1
                             else:
-                                print(f"Invalid solution at iteration {_ + 1}, message: {message}")
+                                print(f"Invalid solution at iteration {_ + 1})")
 
                             exec_times.append(exec_time)
                     if costs:

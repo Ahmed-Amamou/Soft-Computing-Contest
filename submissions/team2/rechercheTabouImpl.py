@@ -1,5 +1,5 @@
-from functions import calculate_distance, calculate_total_cost, create_initial_solution, neighborhood_solution, print_solution
-# from rechTabouEvaluation import parse_solution_file
+from functions import calculate_distance, calculate_total_cost, create_initial_solution, neighborhood_solution, print_solution,parse_vrp_file
+
 
 # Recherche Tabou
 def tabu_search(node_coords, demands, capacity, max_iterations, tabu_tenure, depot_coords):
@@ -55,15 +55,15 @@ def tabu_search(node_coords, demands, capacity, max_iterations, tabu_tenure, dep
 
     return best_solution, best_cost
 
-# filename = '../../data/A/A-n32-k5.vrp'  
-# node_coords, demands, capacity, depot_coords = parse_solution_file(filename)
+filename = '../../data/A/A-n32-k5.vrp'  
+node_coords, demands, capacity, depot_coords = parse_vrp_file(filename)
 
-# # Paramètres
-# max_iterations = 100
-# tabu_tenure = 10
+# Paramètres
+max_iterations = 100
+tabu_tenure = 10
 
 # Résolution avec recherche Tabou
-# best_solution, best_cost = tabu_search(node_coords, demands, capacity, max_iterations, tabu_tenure, depot_coords)
+best_solution, best_cost = tabu_search(node_coords, demands, capacity, max_iterations, tabu_tenure, depot_coords)
 
-# # Affichage des résultats
-# print_solution(best_solution, best_cost)
+# Affichage des résultats
+print_solution(best_solution, best_cost)
