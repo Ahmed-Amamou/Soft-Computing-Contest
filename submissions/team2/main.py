@@ -16,8 +16,8 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Chemin vers le fichier d'instance    
-    instance_path = os.path.join(script_dir, "C:/Soft-Computing-Contest/data/A/A-n32-k5.vrp")
-    optimal_solution_path = os.path.join(script_dir, "C:/Soft-Computing-Contest/data/A/A-n32-k5.sol")
+    instance_path = os.path.join(script_dir, "../../data/A/A-n32-k5.vrp")
+    optimal_solution_path = os.path.join(script_dir, "../../data/A/A-n32-k5.sol")
 
     # Vérification du fichier d'instance
     if not os.path.exists(instance_path):
