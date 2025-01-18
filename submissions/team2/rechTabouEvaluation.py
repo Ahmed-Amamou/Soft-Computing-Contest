@@ -143,7 +143,6 @@ def evaluate_algorithm(data_path, tabu_search_fn, solution_path, iterations=100,
     return results
 
 
-
 def evaluate_algorithm_for_single_instance(instance_path, tabu_search_fn, solution_path, iterations=100, tabu_tenures=[5, 10, 20]):
     """
     Évalue l'algorithme de recherche tabou sur une seule instance et ses paramètres.
@@ -234,10 +233,6 @@ def evaluate_algorithm_for_single_instance(instance_path, tabu_search_fn, soluti
 
     print("Final evaluation results:", results)
     return results
-
-
-
-
 
 # Afficher des résultats de l'évaluation
 def display_results(results):
