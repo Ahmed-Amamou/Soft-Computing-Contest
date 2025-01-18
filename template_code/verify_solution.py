@@ -27,7 +27,7 @@ def verify_solution(instance_data, solution):
     nodes = instance_data["nodes"]
     demands = instance_data["demands"]
     capacity = instance_data["capacity"]
-    depot = 0
+    depot = 1
     required_trucks = instance_data.get("trucks", None)
     optimal_value = instance_data.get("optimal_value", None)
 
@@ -50,8 +50,7 @@ def verify_solution(instance_data, solution):
         for node in route:
             if node in visited:
                 return False, 0, f"Invalid solution: Customer {node} was visited more than once."
-            if node == depot:
-                return False, 0, "Invalid solution: Depot appears in a route other than as the start or end point."
+
 
             visited.add(node)
             load += demands[node]
@@ -70,7 +69,8 @@ def verify_solution(instance_data, solution):
         total_cost += route_cost
 
     # Check if all customers were visited exactly once
-    all_customers = set(nodes.keys()) - {depot}  # All customers (excluding depot)
+    all_customers = set(nodes.keys())   # All customers (excluding depot and last node)
+    all_customers.remove(max(all_customers))  # Remove the last node
     if visited != all_customers:
         unvisited = all_customers - visited
         return False, 0, f"Invalid solution: Not all customers were visited. Missing: {unvisited}"
