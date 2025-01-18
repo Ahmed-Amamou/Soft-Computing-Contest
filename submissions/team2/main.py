@@ -37,16 +37,16 @@ def main():
 
     # Evaluation globale sur toutes les instances
     data_directory = os.path.join(script_dir, "../../data")
-    #results = evaluate_algorithm(data_directory, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
+    results = evaluate_algorithm(data_directory, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
 
     # Affichage des résultats de l'évaluation globale
-    #display_results(results)
+    display_results(results)
 
-    taboue_results= evaluate_algorithm_for_single_instance(instance_path, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
+    # taboue_results= evaluate_algorithm_for_single_instance(instance_path, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
 
-    display_results(taboue_results)
+    # display_results(taboue_results)
 
-    plot_simple_results(taboue_results)
+    # plot_simple_results(taboue_results)
 
     # Comparison des 4 approches
     #generate_plots(taboue_results, recuit_results, locale_results, gloutonne_results)
