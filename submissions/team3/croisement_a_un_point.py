@@ -1,7 +1,7 @@
 import random
 
 
-def crossover(parent1, parent2, demands, capacity, all_cities, depot):
+def crossover(parent1, parent2, demands, capacity, trucks, depot):
     """
     Performs the Order Crossover (OX) on two parents to generate two children.
     """
@@ -29,8 +29,8 @@ def crossover(parent1, parent2, demands, capacity, all_cities, depot):
     fill_remaining(child2_sequence, parent1_sequence)
 
     # Convert back to routes
-    child1_routes = split_into_routes(child1_sequence, demands, capacity, depot)
-    child2_routes = split_into_routes(child2_sequence, demands, capacity, depot)
+    child1_routes = split_into_routes(child1_sequence, demands, capacity, trucks)
+    child2_routes = split_into_routes(child2_sequence, demands, capacity, trucks)
 
     return (child1_routes, None), (child2_routes, None)
 
@@ -52,7 +52,7 @@ def fill_remaining(child_sequence, parent_sequence):
                     break
 
 
-def split_into_routes(sequence, demands, capacity, depot):
+def split_into_routes(sequence, demands, capacity, trucks):
     """
     Splits a sequence of cities into feasible routes based on truck capacity.
     """
@@ -86,13 +86,13 @@ def split_into_routes(sequence, demands, capacity, depot):
             if element is not None:
                 nettoyee.append(element)
         resultat.append(nettoyee)
-    while len(resultat) < 5:
+    while len(resultat) < trucks:
         resultat.append([])
     routes = resultat
     return routes
 
 
-def generate_offspring(population, demands, capacity, all_cities, depot):
+def generate_offspring(population, demands, capacity, trucks, depot):
     """
     Generates a new population by performing crossover on pairs of individuals.
     """
@@ -101,7 +101,7 @@ def generate_offspring(population, demands, capacity, all_cities, depot):
     for i in range(0, len(population), 2):
         parent1 = population[i]
         parent2 = population[i + 1]
-        child1, child2 = crossover(parent1, parent2, demands, capacity, all_cities, depot)
+        child1, child2 = crossover(parent1, parent2, demands, capacity, trucks, depot)
         new_population.extend([child1, child2])
 
     return new_population

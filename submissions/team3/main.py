@@ -30,7 +30,6 @@ def algorithme_genetique(instance_data):
     Sbest1, fitness = get_best_solution(populationInitiale, instance_data)
     Sbest = copy.deepcopy(Sbest1)
 
-    new_fitness = 0
 
     # Mesure du temps d'exécution
     start_time = time.time()  # Démarre le chronomètre
@@ -48,7 +47,7 @@ def algorithme_genetique(instance_data):
             fitness = new_fitness
 
         # Croisement à un point
-        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
+        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], int(instance_data["trucks"]), 0)
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
         new_Sbest, new_fitness = get_best_solution(populationCroiseeAUnPoint, instance_data)
         if new_fitness < fitness:  # Si la nouvelle solution est meilleure
@@ -73,5 +72,5 @@ def algorithme_genetique(instance_data):
 
     # Validation finale
     b, f, m = verify_solution(instance_data, Sbest[0])
-    print("La Solution est: ", b,"\nLe cout total est :", f)
+    print("La Solution est: ", b,"\nLe cout total est :", f, m)
     return (Sbest[0])
