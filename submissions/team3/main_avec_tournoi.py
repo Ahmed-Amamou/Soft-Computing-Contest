@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # print("Les villes à visiter sont les suivants:")
     # for node_id, (x, y) in nodes.items():
     #     print("Node ID: ", node_id, ", Coordinates: (", x, ",", y, ")")
-    individus = 20  # nb d'individus dans la population
+    individus = 12  # nb d'individus dans la population
     n = 10000  # Nombre d'itérations
 
     # Génération de la population initiale
@@ -58,7 +58,7 @@ if __name__ == "__main__":
     #    print("Sbest après tournoi:", Sbest, "\n fitness:", fitness)
 
         # Croisement à un point
-        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
+        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], int(instance_data["trucks"]), 0)
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
       #  print("population apres croisement", populationCroiseeAUnPoint)
         new_Sbest, new_fitness = get_best_solution(populationCroiseeAUnPoint, instance_data)
@@ -92,4 +92,5 @@ if __name__ == "__main__":
     # Validation finale
     b, f, m = verify_solution(instance_data, Sbest[0])
     print("La Solution est: ", b,"\nLe cout total est :", f)
-    s=algorithme_genetique(instance_data)
+  #  s=algorithme_genetique(instance_data)
+    s1=algorithme_genetique(read_instance("../../data/A/A-n80-k10.vrp"))
