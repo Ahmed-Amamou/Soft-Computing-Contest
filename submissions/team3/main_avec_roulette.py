@@ -6,6 +6,7 @@ from population_initiale import generate_multiple_solutions
 from selection_par_tournoi import tournament_selection
 from best_solution import get_best_solution
 from mutation import mutate_population
+from submissions.team3.selection_par_roulette import roulette_selection
 
 # Add the parent directory to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
@@ -47,10 +48,10 @@ if __name__ == "__main__":
         print(f"\n--- Iteration {iteration + 1} ---")
 
         # Sélection par tournoi
-        populationSelectionneeParTournoi = tournament_selection(populationInitiale, instance_data)
+        populationSelectionneeParRoulette = roulette_selection(populationInitiale, instance_data)
 
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
-        new_Sbest, new_fitness = get_best_solution(populationSelectionneeParTournoi, instance_data)
+        new_Sbest, new_fitness = get_best_solution(populationSelectionneeParRoulette, instance_data)
         SbestList = list(new_Sbest)
         if new_fitness < fitness:  # Si la nouvelle solution est meilleure
             Sbest = copy.deepcopy(new_Sbest)
@@ -58,7 +59,8 @@ if __name__ == "__main__":
         print("Sbest après tournoi:", Sbest, "\n fitness:", fitness)
 
         # Croisement à un point
-        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
+        populationCroiseeAUnPoint = populationSelectionneeParRoulette
+     #   populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
         print("population apres croisement", populationCroiseeAUnPoint)
         new_Sbest, new_fitness = get_best_solution(populationCroiseeAUnPoint, instance_data)

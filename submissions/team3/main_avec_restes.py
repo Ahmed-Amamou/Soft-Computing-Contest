@@ -10,6 +10,7 @@ from mutation import mutate_population
 # Add the parent directory to sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")))
 from submissions.team3.croisement_a_un_point import generate_offspring
+from submissions.team3.selection_par_les_restes import stochastic_remainder_selection
 
 from template_code.read_instances import read_instance
 
@@ -47,10 +48,10 @@ if __name__ == "__main__":
         print(f"\n--- Iteration {iteration + 1} ---")
 
         # Sélection par tournoi
-        populationSelectionneeParTournoi = tournament_selection(populationInitiale, instance_data)
+        populationSelectionneeParLesRestes = stochastic_remainder_selection(populationInitiale, instance_data)
 
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
-        new_Sbest, new_fitness = get_best_solution(populationSelectionneeParTournoi, instance_data)
+        new_Sbest, new_fitness = get_best_solution(populationSelectionneeParLesRestes, instance_data)
         SbestList = list(new_Sbest)
         if new_fitness < fitness:  # Si la nouvelle solution est meilleure
             Sbest = copy.deepcopy(new_Sbest)
@@ -58,7 +59,8 @@ if __name__ == "__main__":
         print("Sbest après tournoi:", Sbest, "\n fitness:", fitness)
 
         # Croisement à un point
-        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
+        populationCroiseeAUnPoint = populationSelectionneeParLesRestes
+       # populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
         print("population apres croisement", populationCroiseeAUnPoint)
         new_Sbest, new_fitness = get_best_solution(populationCroiseeAUnPoint, instance_data)
