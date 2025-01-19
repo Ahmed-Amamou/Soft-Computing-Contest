@@ -1,0 +1,117 @@
+File: ../../data/B/B-n57-k7.vrp
+Best Cost: 927.7400375700597
+Verification Result: (True, 927.7400375700597, 'Congratulations! Your solution is valid and the total cost is 927.74.')
+Execution Time: 0.03411078453063965 seconds
+
+File: ../../data/B/B-n57-k9.vrp
+Best Cost: 808.5877093342054
+Verification Result: (True, 808.5877093342053, 'Congratulations! Your solution is valid and the total cost is 808.59.')
+Execution Time: 0.03786778450012207 seconds
+
+File: ../../data/B/B-n35-k5.vrp
+Best Cost: 706.3371426867915
+Verification Result: (True, 706.3371426867916, 'Congratulations! Your solution is valid and the total cost is 706.34.')
+Execution Time: 0.03926444053649902 seconds
+
+File: ../../data/B/B-n38-k6.vrp
+Best Cost: 573.2117370632644
+Verification Result: (True, 573.2117370632643, 'Congratulations! Your solution is valid and the total cost is 573.21.')
+Execution Time: 0.028841495513916016 seconds
+
+File: ../../data/B/B-n63-k10.vrp
+Best Cost: 984.0853842354586
+Verification Result: (True, 984.0853842354584, 'Congratulations! Your solution is valid and the total cost is 984.09.')
+Execution Time: 0.039849281311035156 seconds
+
+File: ../../data/B/B-n50-k7.vrp
+Best Cost: 701.5868442912652
+Verification Result: (True, 701.5868442912652, 'Congratulations! Your solution is valid and the total cost is 701.59.')
+Execution Time: 0.0376129150390625 seconds
+
+File: ../../data/B/B-n67-k10.vrp
+Best Cost: 893.342941357951
+Verification Result: (True, 893.3429413579508, 'Congratulations! Your solution is valid and the total cost is 893.34.')
+Execution Time: 0.039244890213012695 seconds
+
+File: ../../data/B/B-n34-k5.vrp
+Best Cost: 573.8898241365534
+Verification Result: (True, 573.8898241365534, 'Congratulations! Your solution is valid and the total cost is 573.89.')
+Execution Time: 0.04654812812805176 seconds
+
+File: ../../data/B/B-n78-k10.vrp
+Best Cost: 959.612045081841
+Verification Result: (True, 959.6120450818406, 'Congratulations! Your solution is valid and the total cost is 959.61.')
+Execution Time: 0.05058407783508301 seconds
+
+File: ../../data/B/B-n66-k9.vrp
+Best Cost: 887.9782116184908
+Verification Result: (True, 887.9782116184908, 'Congratulations! Your solution is valid and the total cost is 887.98.')
+Execution Time: 0.04131889343261719 seconds
+
+File: ../../data/B/B-n39-k5.vrp
+Best Cost: 604.2292724768773
+Verification Result: (True, 604.2292724768772, 'Congratulations! Your solution is valid and the total cost is 604.23.')
+Execution Time: 0.030356645584106445 seconds
+
+File: ../../data/B/B-n64-k9.vrp
+Best Cost: 730.0362076674073
+Verification Result: (True, 730.0362076674072, 'Congratulations! Your solution is valid and the total cost is 730.04.')
+Execution Time: 0.03568434715270996 seconds
+
+File: ../../data/B/B-n41-k6.vrp
+Best Cost: 668.4440087097997
+Verification Result: (True, 668.4440087097997, 'Congratulations! Your solution is valid and the total cost is 668.44.')
+Execution Time: 0.04973435401916504 seconds
+
+File: ../../data/B/B-n68-k9.vrp
+Best Cost: 881.7335223885074
+Verification Result: (True, 881.7335223885073, 'Congratulations! Your solution is valid and the total cost is 881.73.')
+Execution Time: 0.04001593589782715 seconds
+
+File: ../../data/B/B-n43-k6.vrp
+Best Cost: 633.9692030721451
+Verification Result: (True, 633.9692030721451, 'Congratulations! Your solution is valid and the total cost is 633.97.')
+Execution Time: 0.029741287231445312 seconds
+
+File: ../../data/B/B-n45-k6.vrp
+Best Cost: 507.18633663417955
+Verification Result: (True, 507.1863366341796, 'Congratulations! Your solution is valid and the total cost is 507.19.')
+Execution Time: 0.06120944023132324 seconds
+
+File: ../../data/B/B-n45-k5.vrp
+Best Cost: 698.8315771782244
+Verification Result: (True, 698.8315771782243, 'Congratulations! Your solution is valid and the total cost is 698.83.')
+Execution Time: 0.029442548751831055 seconds
+
+File: ../../data/B/B-n31-k5.vrp
+Best Cost: 572.6750692165983
+Verification Result: (True, 572.6750692165983, 'Congratulations! Your solution is valid and the total cost is 572.68.')
+Execution Time: 0.03834843635559082 seconds
+
+File: ../../data/B/B-n51-k7.vrp
+Best Cost: 1012.3007533746077
+Verification Result: (True, 1012.3007533746074, 'Congratulations! Your solution is valid and the total cost is 1012.30.')
+Execution Time: 0.03259754180908203 seconds
+
+File: ../../data/B/B-n52-k7.vrp
+Best Cost: 685.0583161334479
+Verification Result: (True, 685.0583161334478, 'Congratulations! Your solution is valid and the total cost is 685.06.')
+Execution Time: 0.033357858657836914 seconds
+
+File: ../../data/B/B-n44-k7.vrp
+Best Cost: 694.2688279090676
+Verification Result: (True, 694.2688279090676, 'Congratulations! Your solution is valid and the total cost is 694.27.')
+Execution Time: 0.0341181755065918 seconds
+
+File: ../../data/B/B-n50-k8.vrp
+Best Cost: 815.1510685412588
+Verification Result: (True, 815.1510685412588, 'Congratulations! Your solution is valid and the total cost is 815.15.')
+Execution Time: 0.03558993339538574 seconds
+
+File: ../../data/B/B-n56-k7.vrp
+Best Cost: 654.0728749872792
+Verification Result: (True, 654.0728749872792, 'Congratulations! Your solution is valid and the total cost is 654.07.')
+Execution Time: 0.03636026382446289 seconds
+
+Maximum Execution Time: 0.06120944023132324 seconds
+Average Solution Cost: 746.7099528550121
