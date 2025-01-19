@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 
-input_file = r"C:\Users\bouka\OneDrive\Bureau\soft comp\Soft-Computing-Contest\excelConversion\inputs\RechercheTabouOutputA.txt"
+input_file = r"C:\Users\bouka\OneDrive\Bureau\soft comp\Soft-Computing-Contest\excelConversion\inputs\rechercheLocaleOutputB.txt"
 output_file = "rechercheLocaleOutputB.xlsx"
 
 data = {
