@@ -6,7 +6,8 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../template_code')))
 from rechTabouEvaluation import evaluate_algorithm, display_results,load_optimal_solution,evaluate_algorithm_for_single_instance
 from rechercheTabouImpl import tabu_search
-from Comparaison import  plot_simple_results
+from rechercheLocaleEvaluation import evaluate_local_search
+from Comparaison import  generate_plots
 from read_instances import read_instance
 
 def main():
@@ -43,13 +44,13 @@ def main():
     #display_results(results)
 
     taboue_results= evaluate_algorithm_for_single_instance(instance_path, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
+    recuit_results=
+    locale_results=evaluate_local_search(instance_path, optimal_solution_path, max_iterations=100, num_simulations=5)
+    gloutonne_results=
 
-    display_results(taboue_results)
-
-    plot_simple_results(taboue_results)
 
     # Comparison des 4 approches
-    #generate_plots(taboue_results, recuit_results, locale_results, gloutonne_results)
+    generate_plots(taboue_results, recuit_results, locale_results, gloutonne_results)
 
 
 
