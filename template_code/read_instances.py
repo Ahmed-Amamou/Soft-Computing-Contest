@@ -1,5 +1,6 @@
 import re
 
+
 def read_instance(file_path):
     """
     Reads a .vrp file and extracts problem data.
@@ -58,9 +59,8 @@ def read_instance(file_path):
             demands[node_id] = demand
         elif section == "depot":
             data["depot"] = 0
-            
+
     nodes[0] = (sum(x for x, y in nodes.values()) // len(nodes), sum(y for x, y in nodes.values()) // len(nodes))
-    print(nodes)
     data["nodes"] = nodes
     data["demands"] = demands
     data["total_demand"] = sum(demands.values())
