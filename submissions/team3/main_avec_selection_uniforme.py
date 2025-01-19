@@ -24,10 +24,10 @@ if __name__ == "__main__":
     instance_path = "../../data/A/A-n32-k5.vrp"
     instance_data = read_instance(instance_path)
     nodes = instance_data["nodes"]
-    print("Le nombre de villes est: ", instance_data["dimension"])
-    print("Les villes à visiter sont les suivants:")
-    for node_id, (x, y) in nodes.items():
-        print("Node ID: ", node_id, ", Coordinates: (", x, ",", y, ")")
+    # print("Le nombre de villes est: ", instance_data["dimension"])
+    # print("Les villes à visiter sont les suivants:")
+    # for node_id, (x, y) in nodes.items():
+    #     print("Node ID: ", node_id, ", Coordinates: (", x, ",", y, ")")
     individus = 12  # nb d'individus dans la population
     n = 10  # Nombre d'itérations
 
@@ -37,15 +37,15 @@ if __name__ == "__main__":
     # Trouver la meilleure solution initiale
     Sbest1, fitness = get_best_solution(populationInitiale, instance_data)
     Sbest = copy.deepcopy(Sbest1)
-    print("Sbest initial:", Sbest, "\n fitness:", fitness)
+   # print("Sbest initial:", Sbest, "\n fitness:", fitness)
     new_fitness = 0
 
     # Mesure du temps d'exécution
     start_time = time.time()  # Démarre le chronomètre
-    print(populationInitiale)
+   # print(populationInitiale)
     # Boucle pour n itérations
     for iteration in range(n):
-        print(f"\n--- Iteration {iteration + 1} ---")
+      #  print(f"\n--- Iteration {iteration + 1} ---")
 
         # Sélection par tournoi
         populationSelectionUniforme = uniform_selection(populationInitiale)
@@ -56,19 +56,19 @@ if __name__ == "__main__":
         if new_fitness < fitness:  # Si la nouvelle solution est meilleure
             Sbest = copy.deepcopy(new_Sbest)
             fitness = new_fitness
-        print("Sbest après tournoi:", Sbest, "\n fitness:", fitness)
+     #   print("Sbest après tournoi:", Sbest, "\n fitness:", fitness)
 
         # Croisement à un point
-        populationCroiseeAUnPoint=populationSelectionUniforme
-        #populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
+       # populationCroiseeAUnPoint=populationSelectionUniforme
+        populationCroiseeAUnPoint = generate_offspring(populationInitiale, instance_data["demands"], instance_data["capacity"], list(instance_data["nodes"].keys()), 0)
         # Mettre à jour Sbest uniquement si une meilleure solution est trouvée
-        print("population apres croisement", populationCroiseeAUnPoint)
+        #print("population apres croisement", populationCroiseeAUnPoint)
         new_Sbest, new_fitness = get_best_solution(populationCroiseeAUnPoint, instance_data)
         SbestList = list(new_Sbest)
         if new_fitness < fitness:  # Si la nouvelle solution est meilleure
             Sbest = copy.deepcopy(new_Sbest)
             fitness = new_fitness
-        print("Sbest après croisement:", Sbest, "\n fitness:", fitness)
+      #  print("Sbest après croisement:", Sbest, "\n fitness:", fitness)
 
         # Mutation de la population
         populationAvecMutation = mutate_population(populationCroiseeAUnPoint)
@@ -79,20 +79,19 @@ if __name__ == "__main__":
             Sbest = copy.deepcopy(new_Sbest)
             fitness = new_fitness
 
-        print("S après mutation:", SbestList, "\n fitness:", new_fitness)
-        print(verify_solution(instance_data, SbestList[0]))
-        print("Sbest après mutation:", Sbest, "\n fitness:", fitness)
-        print("saleeem", verify_solution(instance_data, Sbest[0]))
+        # print("S après mutation:", SbestList, "\n fitness:", new_fitness)
+        # print(verify_solution(instance_data, SbestList[0]))
+        # print("Sbest après mutation:", Sbest, "\n fitness:", fitness)
+        # print("saleeem", verify_solution(instance_data, Sbest[0]))
         # Mettre à jour la population pour la prochaine itération
         populationInitiale = populationAvecMutation
 
     end_time = time.time()  # Arrête le chronomètre
 
     print("\n--- Résultats finaux ---")
-    print("Sbest est:", Sbest, "\n fitness:", fitness)
+    print("Sbest est:", Sbest[0], "\n fitness:", fitness)
     print(f"Temps total d'exécution de la boucle : {end_time - start_time:.5f} secondes")
 
     # Validation finale
     b, f, m = verify_solution(instance_data, Sbest[0])
-    print(f)
-    print(verify_solution(instance_data, Sbest[0]))
+    print("La Solution est: ", b, "\nLe cout total est :", f)
