@@ -113,7 +113,7 @@ def format_solution(solution):
 
 if __name__ == "__main__":
     # Example usage
-    file_path = "../../data/B/B-n34-k5.vrp"  
+    file_path = "../../data/B/B-n44-k7.vrp"  
     instance_data = read_instance(file_path)
 
     initial_temp = 1000

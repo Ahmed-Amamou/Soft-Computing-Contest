@@ -6,9 +6,14 @@ import time
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../template_code')))
 from rechTabouEvaluation import evaluate_algorithm, display_results,load_optimal_solution,evaluate_algorithm_for_single_instance
 from rechercheTabouImpl import tabu_search
-from rechercheLocaleEvaluation import evaluate_local_search
+from recuitSimuleEvaluation import evaluate_algorithm as recuit_evaluate_algorithm, display_results as recuit_display_results
+from recuitSimuleImpl import simulated_annealing
 from Comparaison import  generate_plots
+from rechercheLocaleEvaluation import evaluate_local_search
 from read_instances import read_instance
+from verify_solution import verify_solution
+from heuristiqueGloutonne import greedy_cvrp
+from heuristiqueGloutonneEval import evaluate_algorithm, display_results
 
 def main():
     # Répertoire contenant le script
@@ -28,31 +33,50 @@ def main():
     demands = instance_data["demands"]
     capacity = instance_data["capacity"]
 
-    
     # Chargement de la solution optimale
-    optimal_solution = load_optimal_solution(optimal_solution_path)
+    # optimal_solution = load_optimal_solution(optimal_solution_path)
 
     # Paramètres de la recherche taboue
     max_iterations = 100
     tabu_tenures = [5, 10, 20]
+    params = [5, 10, 20]
 
     # Evaluation globale sur toutes les instances
     data_directory = os.path.join(script_dir, "../../data")
-    #results = evaluate_algorithm(data_directory, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
+    # results = evaluate_algorithm(data_directory, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
 
-    # Affichage des résultats de l'évaluation globale
-    #display_results(results)
+    # # # Affichage des résultats de l'évaluation globale
+    # # display_results(results)
+
+    # Évaluation de l'algorithme glouton
+    # print("Évaluation de l'algorithme glouton sur les instances...")
+    # results = evaluate_algorithm(data_directory, greedy_cvrp, None, iterations=max_iterations, params=params)
+
+    # # Affichage des résultats
+    # print("\nRésultats finaux :")
+    # display_results(results)
+
 
     taboue_results= evaluate_algorithm_for_single_instance(instance_path, tabu_search, optimal_solution_path, iterations=max_iterations, tabu_tenures=tabu_tenures)
-    recuit_results=
+    recuit_results=recuit_evaluate_algorithm(data_directory, simulated_annealing, optimal_solution_path, initial_temp=initial_temp, final_temp=final_temp, alpha=alpha, max_iterations=max_iterations)
     locale_results=evaluate_local_search(instance_path, optimal_solution_path, max_iterations=100, num_simulations=5)
-    gloutonne_results=
+    gloutonne_results=evaluate_algorithm(data_directory, greedy_cvrp, None, iterations=max_iterations, params=params)
 
 
     # Comparison des 4 approches
     generate_plots(taboue_results, recuit_results, locale_results, gloutonne_results)
 
 
+    # Parameters for Simulated Annealing
+    initial_temp = 1000
+    final_temp = 5
+    alpha = 0.99
+
+    #recuit_results = recuit_evaluate_algorithm(data_directory, simulated_annealing, optimal_solution_path, initial_temp=initial_temp, final_temp=final_temp, alpha=alpha, max_iterations=max_iterations)
+
+    #recuit_display_results(recuit_results)
+
+    #plot_simple_results(recuit_results)
 
 
 if __name__ == "__main__":
