@@ -20,8 +20,8 @@ def algorithme_genetique(instance_data):
 
     nodes = instance_data["nodes"]
 
-    individus = 20  # nb d'individus dans la population
-    n = 100000  # Nombre d'itérations
+    individus = 12  # nb d'individus dans la population
+    n = 10000  # Nombre d'itérations
 
     # Génération de la population initiale
     populationInitiale = generate_multiple_solutions(individus, instance_data)
